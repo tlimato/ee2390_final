@@ -1,5 +1,5 @@
 //Stopwatch_Level3.v
-//stopwatch level 2
+//stopwatch level 3
 
 module stopwatch (
     input wire clk,
