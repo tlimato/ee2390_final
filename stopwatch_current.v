@@ -1,4 +1,6 @@
 `timescale 0.1s/1ms
+// Input mappings as stated in contraints file
+// Reset = R2, Clear = T1, Start = U1, Stop = W2, Countdown = V17
 module stopwatch (
     input clk,
     input reset,
