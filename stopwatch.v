@@ -11,7 +11,12 @@ module stopwatch (
     output reg [3:0] seconds2_bcd,
     output reg [3:0] tenths_bcd
 );
-reg [15:0] count_bcd // internal value
+// internal values
+    reg [15:0] count_bcd
+    reg [3:0] tenths_bcd_next =  4'b0000
+    reg [3:0] seconds_bcd_next =  4'b0000
+    reg [3:0] seconds2_bcd_next =  4'b0000
+    reg [3:0] minutes_bcd_next =  4'b0000
     
 // Synchronous reset
 always @(posedge clk) begin
