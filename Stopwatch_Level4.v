@@ -45,7 +45,8 @@ module stopwatch (
             minutes_bcd <= 4'b0000;
             seconds_bcd <= 4'b0000;
             tenths_bcd <= 4'b0000;
-        end else if (start && !stop && !flash) begin
+        end 
+        else if (start && !stop && !flash) begin
             minutes_bcd <= count_reg[11:8];
             seconds_bcd <= count_reg[7:4];
             tenths_bcd <= count_reg[3:0];
@@ -56,9 +57,11 @@ module stopwatch (
     always @(posedge clk) begin
         if (reset) begin
             flash <= 1'b0;
-        end else if (minutes_bcd == 4'b0000 && seconds_bcd == 4'b0000 && tenths_bcd == 4'b0000) begin
+        end 
+        else if (minutes_bcd == 4'b0000 && seconds_bcd == 4'b0000 && tenths_bcd == 4'b0000) begin
             flash <= 1'b1;
-        end else begin
+        end 
+        else begin
             flash <= 1'b0;
         end
     end
@@ -67,9 +70,11 @@ module stopwatch (
     always @(posedge clk) begin
         if (reset) begin
             seven_segment_display <= 7'b000_0000;
-        end else if (flash) begin
+        end 
+        else if (flash) begin
             seven_segment_display <= 7'b111_1111;
-        end else begin
+        end 
+        else begin
             reg [3:0] digit_1, digit_2, digit_3;
             digit_1 <= minutes_bcd;
             digit_2 <= seconds_bcd;
