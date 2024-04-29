@@ -1,1 +1,16 @@
-This is a text file
+Development Goals in Verilog for Basys3 Timer
+
+This outline details the functionalities we aim to achieve in Verilog for a timer implemented on a Basys3 FPGA board. We'll focus on achieving these goals in stages.
+
+Level 1:
+
+    Reset:
+        The timer synchronously resets to 00:00.0 on a high reset signal.
+    Start/Stop:
+        Pressing Start initiates counting upwards from 00:00.0.
+        Counting increments tenths of seconds, seconds, and minutes.
+        It wraps around at 9:59.9 and continues counting from 00:00.0.
+        A high Stop signal pauses the counting process and freezes the displayed time.
+        Pressing Start while stopped resumes counting upwards from the stopped value.
+    Clear (while stopped):
+        A high Clear signal while stopped resets the display to 00:00.0 and maintains the stopped state.
