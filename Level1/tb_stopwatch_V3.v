@@ -1,7 +1,7 @@
 //tb_Stopwatch_V3.v
 
 // Testbench for Stopwatch Counter
-`timescale 10ms/1ms
+`timescale 10ms/1ns
 module stopwatch_tb;
 
   // Inputs
@@ -19,7 +19,7 @@ module stopwatch_tb;
 
 
   // DUT (Device Under Test) - Your Stopwatch Counter Module
-  stopwatch dut (
+  stopwatch dut(
     .clk(clk),
     .reset(reset),
 	.Start(Start),
@@ -43,9 +43,11 @@ module stopwatch_tb;
   $dumpvars(0,stopwatch_tb);
     reset = 1'b1;
 	Start = 1'b1;
+	#5
+	reset = 1'b0;
 	Countdown = 1'b0;
     #10; //
-    reset = 1'b0;
+    
 	Start = 1'b0;
 	#1000
 	Stop = 1'b1;

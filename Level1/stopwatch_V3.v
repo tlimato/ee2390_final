@@ -5,9 +5,8 @@ module stopwatch (
   output reg [3:0] Minutes, Tens_Seconds, Ones_Seconds, Tenths_Seconds
   );
   
-  reg running,nice_D;
-
-	always@(posedge Start,posedge Stop)
+     reg running,nice_D;
+	always@(posedge clk)
 	begin
 		if(Start) running <=1;
 		if(Stop) running <=0;
@@ -16,7 +15,7 @@ module stopwatch (
 	always@(Countdown)
 	begin
 		if(~Countdown) nice_D <=0;
-		if(Countdown) nice_D <=1;
+		else nice_D <=1;
 	end
 	
 	always@(posedge clk) begin
@@ -48,6 +47,7 @@ module stopwatch (
 				Minutes <= 0;
 				end
 		end
+		// Count down logic
 		if (running && nice_D)begin
 			if (Tenths_Seconds == 4'd0) begin
 				Tenths_Seconds <= 4'd9;
