@@ -1,4 +1,4 @@
-//tb_Stopwatch_V4.v
+//tb_Stopwatch_V5.v
 
 // Testbench for Stopwatch Counter
 `timescale 10ms/1ms
