@@ -1,4 +1,4 @@
-//stopwatch_V3.v
+//stopwatch_V4.v
 
 module stopwatch (
   input clk, reset, Start, Stop, Clear, Countdown,
