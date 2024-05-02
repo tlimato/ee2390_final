@@ -26,11 +26,4 @@ endgenerate
   );
 
 
-	sevensegBCDdecoder sevensegBCDdecoder_inst(
-		.IN(IN),
-    .clk(clk),
-		.reset(reset),
-		.Seg(Seg)
-	);
-
 endmodule
