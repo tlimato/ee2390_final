@@ -121,53 +121,34 @@ assign an = an_temp;
 
 reg [6:0] sseg_temp; 
 // IMPLIMENT FLASH ENABLE
-reg flash_enable 1'b0;
-always @ (*)
- begin
-  case(sseg)
-   4'd0 : begin 
-       sseg_temp = 7'b1000000;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd1 : begin 
-       sseg_temp = 7'b1111001;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd2 : begin
-       sseg_temp = 7'b0100100;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd3 : begin
-       sseg_temp = 7'b0110000;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd4 : begin
-       sseg_temp = 7'b0011001;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd5 : begin 
-       sseg_temp = 7'b0010010;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd6 : begin 
-       sseg_temp = 7'b0000010;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd7 : begin
-       sseg_temp = 7'b1111000;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd8 : begin 
-       sseg_temp = 7'b0000000;
-       flash_enable = 1'b0; // Enable flashing //dash
-   4'd9 : begin 
-       sseg_temp = 7'b0010000;
-       flash_enable = 1'b0; // Enable flashing //dash
-      default: begin
-          sseg_temp = 7'b0111111;
-          flash_enable = 1'b1; // Enable flashing //dash
-      end
-  endcase
- end
-// Tyson Flash Seven Segment.w
-always @(flash_enable) begin
-    if (flash_enable) // If flashing is enabled
-        sseg_temp_seg = 7'b1000000; // Display 0
-    else
-        sseg_temp_seg = 7'b1111111; // Turn off all segments
-end 
+reg flash_enable = 1'b0; // Flag to enable flashing
+    always @(posedge click) begin
+    // Change display pattern every (approximately) 1 second
+    if (bcd == 4'b0000) begin
+        if (flash_enable)
+            flash_enable <= 1'b0; // Disable flashing
+        else
+            flash_enable <= 1'b1; // Enable flashing
+    end
+end
+
+// Assign segment pattern to output based on flash enable flag and BCD input
+always @(*) begin
+    case(bcd)
+        4'b0000: sseg_temp = 7'b1000000; // Display 0
+        4'b0001: sseg_temp = 7'b1111001; // Display 1
+        4'b0010: sseg_temp = 7'b0100100; // Display 2
+        4'b0011: sseg_temp = 7'b0110000; // Display 3
+        4'b0100: sseg_temp = 7'b0011001; // Display 4
+        4'b0101: sseg_temp = 7'b0010010; // Display 5
+        4'b0110: sseg_temp = 7'b0000010; // Display 6
+        4'b0111: sseg_temp = 7'b1111000; // Display 7
+        4'b1000: sseg_temp = 7'b0000000; // Display 8
+        4'b1001: sseg_temp = 7'b0010000; // Display 9
+        default: sseg_temp = flash_enable ? 7'b1000000 : 7'b0111111; // Display 0 if flashing, otherwise dash
+    endcase
+end
+
        
 assign {g, f, e, d, c, b, a} = sseg_temp; 
 assign dp = reg_dp;
